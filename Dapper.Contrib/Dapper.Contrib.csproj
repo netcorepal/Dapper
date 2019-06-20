@@ -8,8 +8,7 @@
     <TargetFrameworks>net451;netstandard1.3;netstandard2.0</TargetFrameworks>
     <!-- TODO: Docs -->
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    <PackageReleaseNotes>support aliyun mysql rds read/write connection LAST_INSERT_ID()
-fix:insert return 0 probably when using aliyun mysql rds read/write connection</PackageReleaseNotes>
+    <PackageReleaseNotes>change insert return int to long</PackageReleaseNotes>
     <PackageId>NetCorePal.Dapper.Contrib</PackageId>
   </PropertyGroup>
   <ItemGroup>
