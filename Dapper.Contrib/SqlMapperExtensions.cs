@@ -463,7 +463,7 @@ namespace Dapper.Contrib.Extensions
         }
 
         /// <summary>
-        /// 之后修改后的字段才会更新
+        /// 对比前后是否有数据变更，拼接update语句
         /// </summary>
         /// <typeparam name="T">Type to be updated</typeparam>
         /// <param name="connection">Open SqlConnection</param>
@@ -473,6 +473,11 @@ namespace Dapper.Contrib.Extensions
         /// <returns>true if updated, false if not found or not modified (tracked entities)</returns>
         public static bool UpdateChangedFields<T>(this IDbConnection connection, T entityToUpdate, IDbTransaction transaction = null, int? commandTimeout = null) where T : class
         {
+            var isOpen = false;
+            if (connection.State == ConnectionState.Open)
+            {
+                isOpen = true;
+            }
             if (entityToUpdate is IProxy proxy && !proxy.IsDirty)
             {
                 return false;
@@ -552,10 +557,10 @@ namespace Dapper.Contrib.Extensions
                         updateResult = true;
                     }
                 }
-                //如果没有更新内容直接返回
+                //如果没有更新内容直接返回true
                 if (!updateResult)
                 {
-                    return false;
+                    return true;
                 }
                 sb.Remove(sb.Length - 1, 1);
                 sb.Append(sbWhere.ToString());
@@ -564,8 +569,8 @@ namespace Dapper.Contrib.Extensions
             }
             finally
             {
-                //手动关闭
-                if (connection.State == ConnectionState.Open)
+                //手动关闭（进入方法前已经打开数据库连接，方法内不会关闭）
+                if (connection.State == ConnectionState.Open && !isOpen)
                 {
                     connection.Close();
                 }
