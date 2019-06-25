@@ -550,7 +550,7 @@ namespace Dapper.Contrib.Extensions
                     var property = nonIdProps[i];
                     var entityValue = property.GetValue(entity);
                     var entity2Value = property.GetValue(entityToUpdate);
-                    if (!entityValue.Equals(entity2Value))
+                    if (entityValue == null && entity2Value == null ? false : (entityValue != null ? !entityValue.Equals(entity2Value) :!entity2Value.Equals(entityValue) ))
                     {
                         adapter.AppendColumnNameEqualsValue(sb, property.Name);  //fix for issue #336                    
                         sb.Append(",");
