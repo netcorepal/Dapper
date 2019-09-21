@@ -19,6 +19,7 @@ steps:
   inputs:
     command: 'build'
     projects: '**/Dapper.Contrib.csproj'
+    arguments: '-c $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
   displayName: 'dotnet pack'
@@ -27,12 +28,13 @@ steps:
     packagesToPack: '**/Dapper.Contrib.csproj'
 
 
+
 - task: NuGetCommand@2
   displayName: 'NuGet push'
   inputs:
     command: push
     nuGetFeedType: external
     publishFeedCredentials: nuget
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/Dapper.Contrib/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
   condition: ne(variables['Build.Reason'], 'PullRequest')
 
