@@ -8,7 +8,7 @@
     <TargetFrameworks>net451;netstandard1.3;netstandard2.0</TargetFrameworks>
     <!-- TODO: Docs -->
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    <PackageReleaseNotes>新增接口UpdateChangedFields（对比前后是否有数据变更，拼接update语句）</PackageReleaseNotes>
+    <PackageReleaseNotes>change insert return int to long</PackageReleaseNotes>
     <PackageId>NetCorePal.Dapper.Contrib</PackageId>
   </PropertyGroup>
   <ItemGroup>
