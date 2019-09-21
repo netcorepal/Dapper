@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup>
-    <VersionPrefix>1.50.8</VersionPrefix>
+    <VersionPrefix>1.50.7</VersionPrefix>
 
     <Copyright>2017 Stack Exchange, Inc.</Copyright>
 
