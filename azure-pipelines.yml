@@ -24,12 +24,6 @@ steps:
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-
-- task: VSTest@2
-  inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
@@ -39,13 +33,6 @@ steps:
     command: pack
     packagesToPack: '**/Dapper.Contrib.csproj'
 
-- task: CopyFiles@2
-  displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
-  inputs:
-    SourceFolder: '$(system.defaultworkingdirectory)'
-    Contents: '**\\bin\\$(BuildConfiguration)\\**'
-    TargetFolder: '$(build.artifactstagingdirectory)'
-  condition: succeededOrFailed()
 
 - task: NuGetCommand@2
   displayName: 'NuGet push'
@@ -53,5 +40,6 @@ steps:
     command: push
     nuGetFeedType: external
     publishFeedCredentials: nuget
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/Dapper.Contrib/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
   condition: ne(variables['Build.Reason'], 'PullRequest')
 
