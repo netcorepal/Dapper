@@ -8,7 +8,7 @@
     <TargetFrameworks>net451;netstandard1.3;netstandard2.0</TargetFrameworks>
     <!-- TODO: Docs -->
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    <PackageReleaseNotes>UpdateChangedFields接口中修复问题：添加必要为空判断</PackageReleaseNotes>
+    <PackageReleaseNotes>change insert return int to long</PackageReleaseNotes>
     <PackageId>NetCorePal.Dapper.Contrib</PackageId>
   </PropertyGroup>
   <ItemGroup>
